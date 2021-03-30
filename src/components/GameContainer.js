@@ -5,6 +5,7 @@ import GameOver from './GameOver'
 
 const GameContainer = () => {
 	const [points, setPoints] = useState({ score: 0 })
+	// fixme: se renderiza 2 veces y hay que arrancar el contador en -1
 	const [count, setCount] = useState(-1)
 	const [choises, setChoises] = useState(randomChoise())
 	const [time, setTime] = useState(10)
