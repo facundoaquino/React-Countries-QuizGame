@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { countries } from '../data/countries'
+import { userContext } from '../user/userContext'
 
-const Choise = ({title, country , setPoints,score,setTime}) => {
+const Choise = ({ title, country }) => {
+	const {
+		user: { score },
+		dispatch,
+	} = useContext(userContext)
 
+	const handleAnswer = () => {
+		const isCorrect = countries.some((coun) => coun.countrie === country && coun.capital === title)
+		dispatch({ type: 'add_score', payload: score + isCorrect })
+		dispatch({type:'set_choises'})
+		dispatch({ type: 'reset_time' })
+	}
 
-
-    const handleAnswer =()=>{
-       
-      const isCorrect=  countries.some(coun=>coun.countrie===country&&coun.capital===title)
-       isCorrect ?  setPoints({score:score+1}) :setPoints({score:score+0})
-
-       setTime(10)
-    }
-
-    return (
-        <div onClick={handleAnswer} className='game__choise'>
-            {title}
-        </div>
-    )
+	return (
+		<div onClick={handleAnswer} className="game__choise">
+			{title}
+		</div>
+	)
 }
 
 export default Choise
